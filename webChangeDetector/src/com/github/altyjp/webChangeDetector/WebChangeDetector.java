@@ -16,7 +16,8 @@ public class WebChangeDetector {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        HtmlGetter getter
+        HtmlGetter getter = new HtmlGetter("http://littlebullet.webdeki-bbs.com");
+        
     }
     
 }

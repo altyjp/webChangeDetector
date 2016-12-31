@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 
 /**
  *
@@ -19,16 +18,21 @@ import java.nio.charset.StandardCharsets;
 public class HtmlGetter {
 
     private static String targetURL;
-    
-    public HtmlGetter(String target_url){
+
+    /**
+     * コンストラクタ
+     * 文字列として取得するURLを指定する。
+     * @param target_url 
+     */
+    public HtmlGetter(String target_url) {
         this.targetURL = target_url;
     }
 
-    private static String executeGet() {
+    public static String executeGet() {
         System.out.println("===== HTTP GET Start =====");
-        
+
         StringBuilder sb = new StringBuilder();
-        
+
         try {
             URL url = new URL(targetURL);
 
@@ -40,13 +44,12 @@ public class HtmlGetter {
 
                 if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                     try (InputStreamReader isr = new InputStreamReader(connection.getInputStream(),
-                            StandardCharsets.UTF_8);
+                            "SJIS");
                             BufferedReader reader = new BufferedReader(isr)) {
                         String line;
                         while ((line = reader.readLine()) != null) {
-                            System.out.println(line);
-                            sb.append(line);
-
+                                //System.out.println(line);
+                                sb.append(line);
                         }
                     }
                 }
@@ -59,7 +62,7 @@ public class HtmlGetter {
             e.printStackTrace();
         }
 
-        System.out.println("===== HTTP GET End =====");
+        System.out.println("===== HTTP GET :OK =====");
         return new String(sb);
     }
 }
